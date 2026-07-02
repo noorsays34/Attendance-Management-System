@@ -1,0 +1,91 @@
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.stat-card--blue::before { background: var(--accent-blue); }
+.stat-card--green::before { background: var(--accent-green); }
+.stat-card--red::before { background: var(--accent-red); }
+.stat-card--amber::before { background: var(--accent-amber); }
+.stat-card--cyan::before { background: var(--accent-cyan); }
+.stat-card--purple::before { background: var(--accent-purple); }
+
+.stat-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.stat-card-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.stat-card-icon {
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+
+.stat-card-value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-card-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.stat-card-bar {
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-top: 16px;
+  overflow: hidden;
+}
+
+.stat-card-bar-fill {
+  height: 100%;
+  width: 60%;
+  border-radius: 2px;
+  background: var(--accent-blue);
+  animation: barGrow 1s ease forwards;
+}
+
+.stat-card--green .stat-card-bar-fill { background: var(--accent-green); }
+.stat-card--red .stat-card-bar-fill { background: var(--accent-red); }
+.stat-card--amber .stat-card-bar-fill { background: var(--accent-amber); }
+.stat-card--cyan .stat-card-bar-fill { background: var(--accent-cyan); }
+.stat-card--purple .stat-card-bar-fill { background: var(--accent-purple); }
+
+@keyframes barGrow {
+  from { width: 0; }
+}

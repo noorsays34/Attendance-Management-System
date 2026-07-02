@@ -1,0 +1,12 @@
+api/openapi.yaml
+controllers/Controller.js
+controllers/SchoolsController.js
+controllers/index.js
+services/Service.js
+services/SchoolsService.js
+services/index.js
+utils/openapiRouter.js
+expressServer.js
+index.js
+config.js
+logger.js

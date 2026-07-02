@@ -1,0 +1,300 @@
+openapi: 3.0.3
+info:
+  title: School Attendance Management API
+  description: API for managing school attendance, students, and classes
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:5000/api/v1
+
+paths:
+  /schools:
+    get:
+      summary: Get all schools
+      tags: [Schools]
+      responses:
+        '200':
+          description: List of schools
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/School'
+    post:
+      summary: Create a school
+      tags: [Schools]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SchoolInput'
+      responses:
+        '201':
+          description: School created
+
+  /schools/{id}:
+    get:
+      summary: Get school by ID
+      tags: [Schools]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: School details
+        '404':
+          description: School not found
+    put:
+      summary: Update school
+      tags: [Schools]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SchoolInput'
+      responses:
+        '200':
+          description: School updated
+    delete:
+      summary: Delete school
+      tags: [Schools]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: School deleted
+
+  /students:
+    get:
+      summary: Get all students
+      tags: [Students]
+      responses:
+        '200':
+          description: List of students
+    post:
+      summary: Create a student
+      tags: [Students]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentInput'
+      responses:
+        '201':
+          description: Student created
+
+  /students/{id}:
+    get:
+      summary: Get student by ID
+      tags: [Students]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Student details
+    put:
+      summary: Update student
+      tags: [Students]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentInput'
+      responses:
+        '200':
+          description: Student updated
+    delete:
+      summary: Delete student
+      tags: [Students]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Student deleted
+
+  /attendance:
+    get:
+      summary: Get attendance records
+      tags: [Attendance]
+      parameters:
+        - in: query
+          name: date
+          schema:
+            type: string
+            format: date
+        - in: query
+          name: classId
+          schema:
+            type: string
+        - in: query
+          name: studentId
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Attendance records
+    post:
+      summary: Mark attendance
+      tags: [Attendance]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttendanceInput'
+      responses:
+        '201':
+          description: Attendance marked
+
+  /attendance/stats:
+    get:
+      summary: Get attendance statistics
+      tags: [Attendance]
+      responses:
+        '200':
+          description: Attendance statistics
+
+  /classes:
+    get:
+      summary: Get all classes
+      tags: [Classes]
+      responses:
+        '200':
+          description: List of classes
+    post:
+      summary: Create a class
+      tags: [Classes]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassInput'
+      responses:
+        '201':
+          description: Class created
+
+components:
+  schemas:
+    School:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    SchoolInput:
+      type: object
+      required: [name, address]
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+
+    Student:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        rollNumber:
+          type: string
+        classId:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        createdAt:
+          type: string
+
+    StudentInput:
+      type: object
+      required: [name, rollNumber, classId]
+      properties:
+        name:
+          type: string
+        rollNumber:
+          type: string
+        classId:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+
+    AttendanceInput:
+      type: object
+      required: [studentId, classId, date, status]
+      properties:
+        studentId:
+          type: string
+        classId:
+          type: string
+        date:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [present, absent, late, excused]
+        notes:
+          type: string
+
+    ClassInput:
+      type: object
+      required: [name, grade]
+      properties:
+        name:
+          type: string
+        grade:
+          type: string
+        teacherName:
+          type: string

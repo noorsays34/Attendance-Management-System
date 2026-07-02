@@ -1,0 +1,16 @@
+services:
+  backend:
+    build:
+      context: ../server/school-server
+    container_name: attendance-backend
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build:
+      context: .
+    container_name: attendance-frontend
+    ports:
+      - "5173:3000"
+    depends_on:
+      - backend
