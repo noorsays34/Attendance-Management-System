@@ -61,3 +61,5 @@ App opens at http://localhost:3000
 - ✅ Reports with sortable student analytics
 - ✅ Attendance history view
 - ✅ Toast notifications
+
+v2
