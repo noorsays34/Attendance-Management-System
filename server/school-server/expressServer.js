@@ -13,6 +13,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
+// Strip ALB path prefix for path-based routing
+app.use((req, res, next) => {
+  if (req.url.startsWith('/Saishma')) {
+    req.url = req.url.replace('/Saishma', '');
+  }
+  next();
+});
+
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
