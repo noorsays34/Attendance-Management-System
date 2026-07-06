@@ -43,4 +43,5 @@ function App() {
   );
 }
 
+// v2 — S3 deployment
 export default App;
