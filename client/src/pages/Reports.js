@@ -29,7 +29,7 @@ export default function Reports() {
 
   const sorted = stats?.studentStats ? [...stats.studentStats].sort((a, b) => {
     let av = a[sortBy], bv = b[sortBy];
-    if (typeof av === 'string') av = av.toLowerCase(), bv = bv.toLowerCase();
+    if (typeof av === 'string') { av = av.toLowerCase(); bv = bv.toLowerCase(); }
     return sortDir === 'asc' ? (av > bv ? 1 : -1) : (av < bv ? 1 : -1);
   }) : [];
 
