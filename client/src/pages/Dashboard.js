@@ -6,19 +6,14 @@ import './Dashboard.css';
 
 export default function Dashboard() {
   const [stats, setStats] = useState(null);
-  const [recentAttendance, setRecentAttendance] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const load = async () => {
       try {
-        const [statsRes, attendanceRes] = await Promise.all([
-          apiClient.get('/attendance/stats'),
-          apiClient.get('/attendance'),
-        ]);
+        const statsRes = await apiClient.get('/attendance/stats');
         setStats(statsRes.data);
-        setRecentAttendance(attendanceRes.data.slice(-10).reverse());
       } catch (e) {
         console.error(e);
       } finally {
